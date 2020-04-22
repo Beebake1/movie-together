@@ -104,7 +104,7 @@ def embeded(movie,room,username):
             js = js.replace('[[username]]',username)
             js = js.replace('[[room]]',room)
             socketio = "{{ url_for('static', filename='js/socketio.js') }}"
-            iframe_inner = iframe_inner.replace('</html>','<script>'+js+'</script>')
+            iframe_inner = iframe_inner.replace('</html>','<script>'+socketio+'</script><script>'+js+'</script>')
             content = Markup(iframe_inner)
     return render_template('watch/embeded/movie_embeded.html',content=content)
 

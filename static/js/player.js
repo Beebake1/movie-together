@@ -1,5 +1,3 @@
-< script src = "{{ url_for('static', filename='js/socketio.js') }}" > < /script>
-
 $(function() {
 
     const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/event');
