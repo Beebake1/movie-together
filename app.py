@@ -83,12 +83,27 @@ def room(room):
     
     for rim in movie_rooms:
         if(rim['room'] == (room)):
+            username = get_random(5)
             data = {
-                'username' : get_random(5),
+                'username' : username,
                  'room'  : room,
                  'movie' : rim['movie']
         }
-    return render_template('watch/movie.html',data=data)
+    response=fetch(url+'movie/'+ movie)
+    movie_soup = BeautifulSoup(response.text,'html.parser')
+    movie_servers = movie_soup.findAll('li',attrs={'class':'mb5'})
+    content =''
+    for server in movie_servers:
+        iframe_source = fetch(url+'embed-src/?url='+server.find('a')['data-id']+'&t=0')
+        iframe_text = iframe_source.text
+        if(iframe_text.find('Clappr') != -1):
+            iframe_inner = iframe_text
+            js = read('static/js/player.js')
+            js = js.replace('[[username]]',username)
+            js = js.replace('[[room]]',room)
+            iframe_inner = iframe_inner.replace('</html>','<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script><script>'+js+'</script>')
+            content = Markup(iframe_inner)
+    return render_template('watch/embeded/movie_embeded.html',content=content)
 
 @app.route('/embeded/<string:movie>/<string:room>/<string:username>/')
 def embeded(movie,room,username):
