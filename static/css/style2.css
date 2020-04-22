@@ -1,0 +1,64 @@
+  .player{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+h3{
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.movieplayer{
+    width: 100%;
+
+}
+.moviesection{
+    background-color: #e8ebf5;
+}
+.movie-container{
+    display: flex;
+    margin-left: 11.8%; 
+    /* border: 5px solid black; */
+    width: 50%;
+    text-align: center;
+}
+.movie-container img{
+    width: 6rem;
+    padding: 1rem;
+} 
+.movie-details{
+    display: flex;  
+    align-items: center;   
+   
+}
+.movie-details ul{
+    list-style: none;
+    text-align: left;
+}
+
+
+
+/* video size */
+/* .movie-frame{
+    position: relative;
+    padding-bottom: 46.25%;
+    padding-top: 25px;
+    height: 0px;
+}
+.movie-frame iframe{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+}
+#main-footer{
+    position: absolute;
+    bottom:0;
+    right: 0;
+    left: 0;
+    
+} */

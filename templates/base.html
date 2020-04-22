@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies 2gethr | {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+    <link rel="stylesheet" media="screen and (max-width: 1200px)" href="{{ url_for('static', filename='css/ipad.css') }}">
+    <link rel="stylesheet" media="screen and (max-width: 670px)" href="{{ url_for('static', filename='css/mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="{{ url_for('static', filename='js/socketio.js') }}"></script>
+
+</head>
+
+<body>
+    <nav id="navbar">
+        <!-- navbar -->
+        <h1 class="logo item">
+            <span class="text-primary">
+                <a href="/"><span class="text-primary">
+                    <i class="fas fa-video"></i> Movies 2gethr
+                </span></h1>
+        </a>
+        <div class="element">
+            <ul class="item">
+                <li><a href="/">Home</a></li>
+
+            </ul>
+            <form action="/" class="item" method="post">
+                <input type="text" name="search" placeholder="Enter any movie name">
+                <input type="hidden" value="submit">
+                <a href="#"><i class="fas fa-search btn"></i></a>
+            </form>
+        </div>
+
+
+
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <footer id="main-footer">
+        <div class="container bg-dark text-center py-1">
+            <p>Copyright &copy; 2020, Movies 2gethr</p>
+        </div>
+
+    </footer>
+
+
+    <!-- <script src="{{ url_for('static', filename='js/script.js') }}"></script> -->
+
+</body>
+
+</html>

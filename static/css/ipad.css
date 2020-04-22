@@ -1,0 +1,18 @@
+
+iframe{
+    width: 550px;
+    height: 300px;
+}
+.movie-details{
+    display: flex;
+   align-items: flex-start;
+   
+    
+}
+.movie-container{
+    width: 75%;
+}
+.movie-details ul{
+    display: flex;
+    flex-direction: column;
+}

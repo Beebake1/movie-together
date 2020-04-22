@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %}
+<div class="moviesection">
+    <section id="section2">
+        <div class="movieplayer">
+            <div class="player">
+                <h3>{{ data.movie.replace('-',' ').upper() }}</h3>
+                <div class="movie-frame">
+                    <iframe width="1130" height="600" src="/embeded/{{ data.movie }}/{{ data.room }}/{{ data.username }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(function() {
+            room = "{{ data.room }}";
+            username = "{{ data.username }}";
+            movie = "{{ data.movie }}";
+            var message_socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/message');
+
+            message_socket.on('receive_message', function(data) {
+                console.log(data.username + ' says ' + data.message);
+            });
+            message_socket.on('join_room_announcement', function(data) {
+                console.log(data.username + ' joined');
+                $('.user-row').append('<div class="col-md-3 user">User-' + (data.username).toUpperCase() + '</div>');
+            });
+
+            message_socket.on('leave_room_announcement', function(data) {
+                console.log(data.username + ' left');
+            });
+            message_socket.on('connect', function() {
+                message_socket.emit('join_chat_room', {
+                    username: username,
+                    room: room,
+                });
+            });
+
+            window.onbeforeunload = function() {
+                message_socket.emit('leave_chat_room', {
+                    username: username,
+                    room: room
+                })
+            };
+
+            message_socket.emit('send_message', {
+                username: username,
+                room: room,
+                message: 'hello test'
+            });
+        });
+    </script>
+    {% endblock %}

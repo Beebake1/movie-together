@@ -1,0 +1,36 @@
+#navbar{
+    display: block;
+    text-align: center;
+    
+}
+.logo{
+   
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.element{
+    display: felx;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.element ul{
+    margin: 1rem;
+}
+
+/* movies player */
+
+iframe{
+    width: 300px;
+    height: 200px;
+}
+.movie-details{
+    display: flex;
+   align-items: flex-start;
+    
+}
+.movie-details ul{
+    display: flex;
+    flex-direction: column;
+}
