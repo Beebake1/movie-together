@@ -9,9 +9,12 @@ $(function() {
     socket.on('receive_event', function(data) {
         if (username != data.username) {
             if (data.event === 'play') {
+                console.log('play');
                 player.play();
             } else if (data.event === 'pause') {
                 player.pause();
+                console.log('pause');
+
             } else if (data.event === 'seek') {
                 player.seek(parseFloat(data.time));
             }
