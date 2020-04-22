@@ -95,6 +95,7 @@ def embeded(movie,room,username):
     response=fetch(url+'movie/'+ movie)
     movie_soup = BeautifulSoup(response.text,'html.parser')
     movie_servers = movie_soup.findAll('li',attrs={'class':'mb5'})
+    content =''
     for server in movie_servers:
         iframe_source = fetch(url+'embed-src/?url='+server.find('a')['data-id']+'&t=0')
         iframe_text = iframe_source.text
@@ -105,6 +106,8 @@ def embeded(movie,room,username):
             js = js.replace('[[room]]',room)
             iframe_inner = iframe_inner.replace('</html>','<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script><script>'+js+'</script>')
             content = Markup(iframe_inner)
+        else:
+            content = Markup('<h1>Movie not Found</h1>')
     return render_template('watch/embeded/movie_embeded.html',content=content)
 
 if __name__=='__main__':
