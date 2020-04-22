@@ -108,7 +108,7 @@ def embeded(movie,room,username):
             content = Markup(iframe_inner)
         else:
             content = Markup('<h1>Movie not Found</h1>')
-    return render_template('watch/embeded/movie_embeded.html',content=content)
+    return render_template('watch/embeded/movie_embeded.html',content='szdxfcgvhb')
 
 if __name__=='__main__':
     socketio.run()
