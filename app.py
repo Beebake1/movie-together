@@ -75,11 +75,11 @@ def movie(movie_name):
     
     room = get_random(12)
     movie_rooms.append({'room':room,'movie':keyword})
-    return  redirect('/watch/'+room+'/',)
+    return  redirect('/watch/'+room+'/'+keyword+'/',)
 
 
-@app.route('/watch/<string:room>/')
-def room(room):
+@app.route('/watch/<string:room>/<string:movie>/')
+def room(room,movie):
     
     for rim in movie_rooms:
         if(rim['room'] == (room)):
