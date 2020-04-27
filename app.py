@@ -104,8 +104,8 @@ def embeded(movie,room,username):
             js = js.replace('[[room]]',room)
             iframe_inner = iframe_inner.replace('</html>','<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script><script>'+js+'</script>')
             content = Markup(iframe_inner)
-        
-    content = Markup('<h1>Movie not Found</h1>')
+        else:
+            content = Markup('<h1>Movie not Found</h1>')
     return render_template('watch/embeded/movie_embeded.html',content=content)
 
 if __name__=='__main__':
