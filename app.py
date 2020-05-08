@@ -102,21 +102,34 @@ def search():
         return render_template('movie_list.html',data = data)
     else:
         return render_template('index.html')
-movie_rooms = []
+
+
 @app.route('/movie/<string:movie_name>/')
 def movie(movie_name):
     keyword = movie_name
-    room = get_random(12)
-    movie_rooms.append({'room':room,'movie':keyword})
-    return  redirect('/watch/'+room+'/'+keyword+'/',)
+    room = get_random(20)
+    movie_rooms.append({'room':room,'movie':keyword,'users' : []})
+    return  redirect('/watch/'+room+'/',)
 
-@app.route('/watch/<string:room>/<string:movie>/')
-def room(room,movie):
-   
+
+@app.route('/watch/<string:room>/')
+def room(room):
+    movie = ''
+    data = ['hindi' ,'in']
+    for rom in movie_rooms:
+       if(rom['room'] == room):
+           movie = rom['movie']
+    tokens = movie.split('-');
+    movie_name = ''
+    for token in tokens:
+        if(token not in data and token.isalpha()):
+            movie_name+= token + ' '
+
     data = {
             'username' : get_random(5),
                 'room'  : room,
-                'movie' : movie
+                'movie' : movie,
+                'name'  : movie_name
     }
     return render_template('watch/movie.html',data=data)
 
