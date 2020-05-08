@@ -27,9 +27,9 @@ url = "https://hindimovies.to/"
 
 class Bmovies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(220),unique=True)
-    image = db.Column(db.String(220),unique=True)
-    link = db.Column(db.String(220),unique=True)
+    title = db.Column(db.String(220))
+    image = db.Column(db.String(220))
+    link = db.Column(db.String(220))
 
     def __init__(self, title,image,link):
         self.title = title
