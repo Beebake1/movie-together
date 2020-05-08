@@ -15,7 +15,6 @@ from utils.file_helper import read
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = os.environ.get('SECRET')
 
-eng_url = "https://bmoviesfree.page/"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://tbcptjvkoiotvd:95b2637180a39cd15a8755567b00631ef441a48bd7f1f491fb2a76591ed38979@ec2-54-75-246-118.eu-west-1.compute.amazonaws.com:5432/d8ntst072imlh7'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -23,6 +22,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 socketio = SocketIO(app)
 movie_rooms = []
+eng_url = "https://bmoviesfree.page/"
+url = "https://hindimovies.to/"
 
 class Bmovies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -76,7 +77,6 @@ def handle_leave_chat_room_event(data):
             room_data = movie_room
     data.update(room_data = room_data)      
     emit('leave_room_announcement', data, room=data['room'])
-url = "https://hindimovies.to/"
 
 def fetch(url):
     return req.get(url)
@@ -104,14 +104,6 @@ def search():
         return render_template('index.html')
 movie_rooms = []
 @app.route('/movie/<string:movie_name>/')
-def movie(movie_name):
-    keyword = movie_name
-    
-    room = get_random(12)
-    movie_rooms.append({'room':room,'movie':keyword})
-    return  redirect('/watch/'+room+'/'+keyword+'/',)
-
-@app.route('/search/<string:movie_name>/')
 def movie(movie_name):
     keyword = movie_name
     room = get_random(12)
