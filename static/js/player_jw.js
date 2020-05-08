@@ -1,6 +1,5 @@
 $(function() {
-
-    const socket = io.connect('http://192.168.1.84:9000/event');
+    io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/event');
     const username = '[[username]]';
     const room = '[[room]]'
 
