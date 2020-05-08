@@ -29,8 +29,13 @@
     <link rel="stylesheet" media="screen and (max-width: 1200px)" href="{{ url_for('static', filename='css/ipad.css') }}">
     <link rel="stylesheet" media="screen and (max-width: 670px)" href="{{ url_for('static', filename='css/mobile.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="{{ url_for('static', filename='js/socketio.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/css/emojione.min.css" integrity="sha256-UZ7fDcAJctmoEcXmC5TPcZswNRqN/mLzj6uNS1GCVYs=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/emojionearea.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojione/4.5.0/lib/js/emojione.min.js" integrity="sha256-6prVyFTFebTylZKXQyldiRwwBpitcr762cQvxPrP/xw=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/emojionearea.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 
 </head>
 

@@ -22,4 +22,7 @@ python-socketio==4.5.1
 pytz==2019.3
 query-string==2019.4.13
 request==2019.4.13
+Flask-SQLAlchemy==2.4.1
+SQLAlchemy==1.3.16
+sqlparse==0.3.1
 

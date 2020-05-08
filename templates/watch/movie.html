@@ -10,6 +10,38 @@
             </div>
         </div>
     </section>
+    <button class="open-button">Chat</button>
+    <div class="chat_dialog">
+        <div class="chat_window">
+            <div class="top_menu">
+                <div class="buttons">
+                    <div class="button close"></div>
+                    <div class="button minimize"></div>
+                    <div class="button maximize"></div>
+                </div>
+                <div class="title">Chat</div>
+            </div>
+            <ul class="messages"></ul>
+            <div class="bottom_wrapper clearfix">
+                <div class="message_input_wrapper"><input class="message_input" placeholder="Type your message here..." /></div>
+                <div class="send_message">
+                    <div class="icon"></div>
+                    <div class="text">Send</div>
+                </div>
+            </div>
+        </div>
+        <div class="message_template">
+            <li class="message">
+                <div class="avatar">
+                    <div class="user"></div>
+                </div>
+                <div class="text_wrapper">
+                    <div class="text"></div>
+                </div>
+            </li>
+        </div>
+    </div>
+    </body>
     <script>
         $(function() {
             room = "{{ data.room }}";
@@ -17,16 +49,20 @@
             movie = "{{ data.movie }}";
             var message_socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/message');
 
+            $(".message_input_wrapper").emojioneArea();
             message_socket.on('receive_message', function(data) {
-                console.log(data.username + ' says ' + data.message);
+                if (username != data.username) {
+                    sendMessage(data.username.toUpperCase(), data.message, 'left');
+                }
             });
             message_socket.on('join_room_announcement', function(data) {
-                console.log(data.username + ' joined');
-                $('.user-row').append('<div class="col-md-3 user">User-' + (data.username).toUpperCase() + '</div>');
+                $('.messages').append('<div class="joined">' + data.username.toUpperCase() + ' has joined</div>');
+                $('.user-row').append('<div class="col-md-3 user">User-' + (data.username)
+                    .toUpperCase() + '</div>');
             });
 
             message_socket.on('leave_room_announcement', function(data) {
-                console.log(data.username + ' left');
+                $('.messages').append('<div class="joined">' + data.username.toUpperCase() + ' has left</div>');
             });
             message_socket.on('connect', function() {
                 message_socket.emit('join_chat_room', {
@@ -42,11 +78,76 @@
                 })
             };
 
-            message_socket.emit('send_message', {
-                username: username,
-                room: room,
-                message: 'hello test'
+            $(document).on('click', '.send_message', function() {
+                sendMessages();
             });
+
+            function sendMessages() {
+                var msg = $('.message_input_wrapper')[0].emojioneArea.getText();
+                $('.message_input_wrapper')[0].emojioneArea.setText('');
+                $('.message_input_wrapper')[0].emojioneArea.hidePicker();
+                if (msg != '') {
+                    message_socket.emit('send_message', {
+                        username: username,
+                        room: room,
+                        message: msg
+                    });
+                    sendMessage(username.toUpperCase(), msg, 'right');
+                }
+            }
+            $('.message_input_wrapper').keyup(function(e) {
+                if (e.which === 13) {
+                    sendMessages();
+                    $('.message_input_wrapper')[0].emojioneArea.setText('');
+                    $('.message_input_wrapper')[0].emojioneArea.hidePicker();
+                }
+            });
+
+            $(document).on('click', '.open-button', function() {
+                $(this).hide();
+                $('.chat_dialog').slideDown();
+            });
+            $(document).on('click', '.close', function() {
+                $('.open-button').show();
+                $('.chat_dialog').slideUp();
+            });
+
+            var Message;
+            Message = function(arg) {
+                this.text = arg.text, this.message_side = arg.message_side;
+                this.draw = function(_this) {
+                    return function() {
+                        var $message;
+                        $message = $($('.message_template').clone().html());
+                        $message.addClass(_this.message_side).find('.text').html(_this.text);
+                        $message.addClass(_this.message_side).find('.user').html(arg.user);
+                        $('.messages').append($message);
+                        return setTimeout(function() {
+                            return $message.addClass('appeared');
+                        }, 0);
+                    };
+                }(this);
+                return this;
+            };
+            var getMessageText, message_side, sendMessage;
+            sendMessage = function(username, text, side) {
+                var $messages, message;
+                if (text.trim() === '') {
+                    return;
+                }
+                $('.user').val();
+                $messages = $('.messages');
+                message_side = side;
+                message = new Message({
+                    text: text,
+                    message_side: message_side,
+                    user: username,
+                });
+                message.draw();
+                return $messages.animate({
+                    scrollTop: $messages.prop('scrollHeight')
+                }, 300);
+            };
         });
     </script>
     {% endblock %}
