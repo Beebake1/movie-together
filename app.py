@@ -186,8 +186,7 @@ def eng_embeded(movie,room,username):
     content =''
     iframe_source = fetch('https://vidoo.streamango.to/e/'+token)
     iframe_text = iframe_source.text
-    iframe_inner = iframe_text.replace('<title>','<!--<title>')
-    iframe_inner = iframe_inner.replace('</title>','</title>-->')
+    iframe_inner = iframe_text.replace('https','https://cors-anywhere.herokuapp.com/https')
     js = read('static/js/player_jw.js')
     js = js.replace('[[username]]',username)
     js = js.replace('[[room]]',room)

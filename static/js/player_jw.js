@@ -1,5 +1,5 @@
 $(function() {
-    io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/event');
+    const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/event');
     const username = '[[username]]';
     const room = '[[room]]'
 
